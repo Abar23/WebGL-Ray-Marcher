@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>3D Fractals</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				background:#777;
+				padding:0;
+				margin:0;
+				font-weight: bold;
+				overflow:hidden;
+			}
+			#info {
+				position: absolute;
+				top: 0px; width: 100%;
+				color: #353535;
+				padding: 5px;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+				z-index:1000;
+			}
+		</style>
+    </head>
+    <body onload = "start();">
+		<canvas id="game-surface" style="width: 100vw; height: 100vh; display: block;">
+			Your browser does not support HTML5
+		</canvas>
+
+		<script id="vertShader" type="x-shader/x-vertex" src="./Shaders/vertexShader.glsl"></script>
+		<script id="fragShader" type="x-shader/x-fragment" src="./Shaders/Kamil.glsl"></script>
+
+		<script type="text/javascript" src="./Mesh.js"></script>
+		<script type="text/javascript" src="./Shader.js"></script>
+		<script type="text/javascript" src="./Timer.js"></script>
+        <script type="text/javascript" src="./main.js"></script>
+    </body>
+</html>
