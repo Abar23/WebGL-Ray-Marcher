@@ -2,13 +2,11 @@ precision mediump float;
 
 uniform float time;
 uniform vec2 resolution;
-uniform float fractalIncrementer;
 
 #define NEAR 0.0
 #define FAR 100.0
 #define EPSILON 0.0001
-#define MAX_STEPS 150
-#define POWER 0.0
+#define MAX_STEPS 50
 
 mat3 rotateY(float theta) {
     float c = cos(theta);
@@ -30,50 +28,31 @@ mat3 rotateX(float theta) {
     );
 }
 
-mat3 rotateZ(float theta) {
-    float c = cos(theta);
-    float s = sin(theta);
-    return mat3(
-        vec3(c, -s, 0),
-        vec3(s, c, 0),
-        vec3(0, 0, 1)
-    );
+float CubeDistance(vec3 point) 
+{
+    return length(max(abs(point)-vec3(1.0, 1.0, 1.0),0.0));
 }
 
-float FractalDistance(vec3 point) 
-{
-    vec3 z = point;
-    float dr = 3.0;
-    float r;
+float SphereDistance(vec3 point, vec3 position)
+{   
+    vec3 distanceVector = point - position;
 
-    for(int i = 0; i < 30; i++)
+    float radius = abs(sin(time)) * 2.0;
+    if(radius < 0.1)
     {
-        r = length(z);
-        if(r > 3.0)
-        {
-            break;
-        }
-
-        float power = POWER + fractalIncrementer;
-        float theta = acos(z.z / r) * power;
-        float phi = atan(z.y, z.x) * power;
-        float zr = pow(r, power);
-        dr = pow(r, power - 1.0) * power * dr + 1.0;
-        
-        z = zr * vec3(sin(theta) * cos(phi), sin(phi) * sin(theta), cos(theta));
-        z += point;
+        radius = 0.1;
     }
-
-    return (0.5 * log(r) * r) / dr;
+    
+    return length(distanceVector) - radius;
 }
 
 float sceneSDF(vec3 point)
 {
-    point = rotateZ(time) * rotateX(time) * rotateY(time) * point;
-    return FractalDistance(point);
+    point = rotateX(time) * rotateY(time) * point;
+    return max(-SphereDistance(point, vec3(0.0, -1.5, 0.0)), max(-SphereDistance(point, vec3(0.0, 1.5, 0.0)), CubeDistance(point)));
 }
 
-float rayMarch(vec3 rayOrigin, vec3 raydrection)
+float rayMarch(vec3 rayOrigin, vec3 rayDirection)
 {
     float totalDistance = 0.0;
     int steps;
@@ -81,7 +60,7 @@ float rayMarch(vec3 rayOrigin, vec3 raydrection)
     for(int i = 0; i < MAX_STEPS; i++)
     {
         steps = i;
-        vec3 point = rayOrigin + totalDistance * raydrection;
+        vec3 point = rayOrigin + totalDistance * rayDirection;
         float dist = sceneSDF(point);
         totalDistance += dist;
 
@@ -107,7 +86,7 @@ mat3 viewMatrix(vec3 eye, vec3 center, vec3 up) {
 	return mat3(s, u, -f);
 }
 
-vec3 raydrection(float fieldOfView, vec2 size, vec2 fragCoord) {
+vec3 rayDirection(float fieldOfView, vec2 size, vec2 fragCoord) {
     vec2 xy = fragCoord - size / 2.0;
     float z = size.y / tan(radians(fieldOfView) / 2.0);
     return normalize(vec3(xy, -z));
@@ -115,13 +94,13 @@ vec3 raydrection(float fieldOfView, vec2 size, vec2 fragCoord) {
 
 void main()
 {
-    vec3 eyePosition = vec3(5.0, 5.0, 5.0);
-    vec3 drectionOfRay = raydrection(45.0, resolution.xy, gl_FragCoord.xy);
+    vec3 eyePosition = vec3(10.0, 10.0, 10.0);
+    vec3 directionOfRay = rayDirection(45.0, resolution.xy, gl_FragCoord.xy);
     mat3 rayTransform = viewMatrix(eyePosition, vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0));
 
-    vec3 worlddrection = rayTransform * drectionOfRay;
+    vec3 worldDirection = rayTransform * directionOfRay;
 
-    float greyScale = rayMarch(eyePosition, worlddrection);
+    float greyScale = rayMarch(eyePosition, worldDirection);
 
     gl_FragColor = vec4(greyScale, greyScale, greyScale, 1.0);
 }

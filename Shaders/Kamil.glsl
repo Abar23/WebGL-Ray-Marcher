@@ -9,8 +9,8 @@ uniform vec2 resolution;
  * Modified version of shader "abstarct" ( https://www.shadertoy.com/view/4sSGDd ) by avix.
  */
 #define NEAR 0.0
-#define FAR 50.0
-#define MAX_STEPS 64
+#define FAR 100.0
+#define MAX_STEPS 10000
 
 #define PI 3.14159265359
 #define EPS 0.0001

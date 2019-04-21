@@ -46,6 +46,7 @@ var drawScene = function() {
 
     shaderProgram.SetUniformVec2("resolution", [gl.canvas.width, gl.canvas.height]);
     shaderProgram.SetUniform1f("time", timer.GetTicksInRadians());
+    shaderProgram.SetUniform1f("fractalIncrementer", timer.GetFractalIncrement());
     mesh.Draw();
 }
 
