@@ -26,6 +26,9 @@ class Mesh
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
     }
 
+    /**
+     * Draw the geometry of the mesh
+     */
     Draw()
     {
         gl.bindVertexArray(this.vao);

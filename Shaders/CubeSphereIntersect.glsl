@@ -2,6 +2,7 @@ precision mediump float;
 
 uniform float time;
 uniform vec2 resolution;
+uniform float fractalIncrementer;
 
 #define NEAR 0.0
 #define FAR 100.0
@@ -9,22 +10,22 @@ uniform vec2 resolution;
 #define MAX_STEPS 50
 
 mat3 rotateY(float theta) {
-    float c = cos(theta);
-    float s = sin(theta);
+    float cosTheta = cos(theta);
+    float sinTheta = sin(theta);
     return mat3(
-        vec3(c, 0, s),
-        vec3(0, 1, 0),
-        vec3(-s, 0, c)
+        vec3(cosTheta, 0.0, sinTheta),
+        vec3(0.0, 1.0, 0.0),
+        vec3(-sinTheta, 0.0, cosTheta)
     );
 }
 
 mat3 rotateX(float theta) {
-    float c = cos(theta);
-    float s = sin(theta);
+    float cosTheta = cos(theta);
+    float sinTheta = sin(theta);
     return mat3(
-        vec3(1, 0, 0),
-        vec3(0, c, -s),
-        vec3(0, s, c)
+        vec3(1.0, 0.0, 0.0),
+        vec3(0.0, cosTheta, -sinTheta),
+        vec3(0.0, sinTheta, cosTheta)
     );
 }
 

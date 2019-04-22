@@ -36,17 +36,18 @@ class Timer
             this.elapsedTime = 0;
         }
     }
-
-    GetTicks()
-    {
-        return this.elapsedTicks;
-    }
     
+    /**
+     * Return 0 to 2 pi based upon the elapsed ticks
+     */
     GetTicksInRadians()
     {
         return ((this.elapsedTicks - MAX_TICKS) / (MAX_TICKS)) * (Math.PI * 2) 
     }
 
+    /**
+     * Return the float value that will advance the power for the 3D fractal fragment shader
+     */
     GetFractalIncrement()
     {
         return this.fractalIncrementer;

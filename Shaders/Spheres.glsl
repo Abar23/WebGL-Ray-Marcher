@@ -2,6 +2,7 @@ precision mediump float;
 
 uniform float time;
 uniform vec2 resolution;
+uniform float fractalIncrementer;
 
 #define NEAR 0.0
 #define FAR 100.0
