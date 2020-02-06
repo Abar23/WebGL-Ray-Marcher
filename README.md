@@ -63,7 +63,3 @@ Replace `<desired fragment shader>` with one of the specified fragment shaders a
 ```javascript 
 <script id="fragShader" type="x-shader/x-fragment" src="Spheres.glsl" ></script>
 ```
-
-GitHub Pages Project Hosting
-============================
-https://abar23.github.io/WebGL-Ray-Marcher/
