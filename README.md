@@ -1,9 +1,10 @@
 WebGL Ray Marcher
 ========
 
-Created WebGL fragment shaders that utilize raymarching and signed distance functions. 
-To create the fragment shaders, I generated a mesh that maps to the canonical screen space coordinates 
-of the viewport. I have created four different fragment shaders for the program.
+Created WebGL fragment shaders that utilize raymarching and signed 
+distance functions. To create the fragment shaders, I generated a mesh 
+that maps to the canonical screen space coordinates of the viewport. 
+I have created four different fragment shaders for the program.
 
 ## Spheres.glsl
 
@@ -26,8 +27,6 @@ of the viewport. I have created four different fragment shaders for the program.
 ## PurpleGlowMandelbulb.glsl
 
 ![Purple Mandelbulb](https://media.giphy.com/media/jqHqYCQARn0kRXjIk9/giphy.gif)
-
-
 
 How To Run Project
 ==================
