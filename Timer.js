@@ -1,6 +1,6 @@
 const MAX_TICKS = 1000;
 const NUM_MILLIS_PER_FRAME = 10;
-const FRACTAL_INCRMENT = 0.001;
+const FRACTAL_INCRMENT = 0.01;
 
 class Timer
 {

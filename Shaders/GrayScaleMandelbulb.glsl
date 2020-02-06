@@ -5,7 +5,7 @@ uniform vec2 resolution;
 uniform float fractalIncrementer;
 
 #define NEAR 0.0
-#define FAR 100.0
+#define FAR 1000.0
 #define EPSILON 0.0001
 #define MAX_STEPS 250
 #define POWER 0.0
@@ -44,7 +44,7 @@ float MandelbulbDistance(vec3 point)
             break;
         }
 
-        float power = POWER + fractalIncrementer;
+        float power = POWER + abs(5.0 * (1.25 + sin(0.5 * fractalIncrementer)));
         float theta = acos(z.z / r) * power;
         float phi = atan(z.y, z.x) * power;
         float zr = pow(r, power);
@@ -63,7 +63,7 @@ float sceneSignedDistanceFunction(vec3 point)
     return MandelbulbDistance(point);
 }
 
-float rayMarch(vec3 rayOrigin, vec3 raydrection)
+float rayMarch(vec3 rayOrigin, vec3 raydirection)
 {
     float totalDistance = 0.0;
     int steps;
@@ -71,7 +71,7 @@ float rayMarch(vec3 rayOrigin, vec3 raydrection)
     for(int i = 0; i < MAX_STEPS; i++)
     {
         steps = i;
-        vec3 point = rayOrigin + totalDistance * raydrection;
+        vec3 point = rayOrigin + totalDistance * raydirection;
         float dist = sceneSignedDistanceFunction(point);
         totalDistance += dist;
 
@@ -106,10 +106,10 @@ vec3 rayDirection(float fieldOfView, vec2 size, vec2 fragCoord) {
 void main()
 {
     vec3 eyePosition = vec3(4.0, 4.0, 4.0);
-    vec3 drectionOfRay = raydrection(45.0, resolution.xy, gl_FragCoord.xy);
+    vec3 directionOfRay = rayDirection(45.0, resolution.xy, gl_FragCoord.xy);
     mat3 rayTransform = lookAtViewMatrix(eyePosition, vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0));
 
-    vec3 worldDirection = rayTransform * drectionOfRay;
+    vec3 worldDirection = rayTransform * directionOfRay;
 
     float grayScale = rayMarch(eyePosition, worldDirection);
 

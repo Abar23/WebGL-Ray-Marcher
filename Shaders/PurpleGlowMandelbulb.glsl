@@ -8,7 +8,7 @@ uniform float fractalIncrementer;
 #define FAR 100.0
 #define EPSILON 0.0001
 #define MAX_STEPS 250
-#define POWER 0.0
+#define POWER 1.0
 
 mat3 rotateY(float theta) {
     float cosTheta = cos(theta);
@@ -44,7 +44,7 @@ float MandelbulbDistance(vec3 point)
             break;
         }
 
-        float power = POWER + fractalIncrementer;
+        float power = POWER + abs(5.0 * (1.25 + sin(0.5 * fractalIncrementer)));
         float theta = acos(z.z / r) * power;
         float phi = atan(z.y, z.x) * power;
         float zr = pow(r, power);
