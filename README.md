@@ -6,25 +6,25 @@ distance functions. To create the fragment shaders, I generated a mesh
 that maps to the canonical screen space coordinates of the viewport. 
 I have created four different fragment shaders for the program.
 
-## Spheres.glsl
+### Spheres.glsl
 
 ![Spheres](https://media.giphy.com/media/hQnbZGgSnHtvuz81g3/giphy.gif)
 
 
 
-## CubeSphereIntersect.glsl
+### CubeSphereIntersect.glsl
 
 ![Cube Sphere Intersection](https://media.giphy.com/media/Qu0pwRknz6nWYyXY4E/giphy.gif)
 
 
 
-## GrayScaleMandelbulb.glsl
+### GrayScaleMandelbulb.glsl
 
 ![Grey Mandelbulb](https://media.giphy.com/media/SvRnvBGcpO7eJED92k/giphy.gif)
 
 
 
-## PurpleGlowMandelbulb.glsl
+### PurpleGlowMandelbulb.glsl
 
 ![Purple Mandelbulb](https://media.giphy.com/media/jqHqYCQARn0kRXjIk9/giphy.gif)
 
