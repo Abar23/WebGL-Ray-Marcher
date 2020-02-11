@@ -41,7 +41,7 @@ the following python command:
 python3 -m http.server
 ```
 
-Once the server is running locally, connect to it via the corresponding port:
+Once the server is running locally, connect to it via the proper port number:
 
 ```
 localhost:<port number>
